@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,25 +12,24 @@
             padding: 0;
             height: 100vh;
             width: 100vw;
-            /* STEP A: Your Pink Rose Background */
-            /* You need a file named roses.jpg in the same folder */
+            /* Your Pink Rose Background */
             background-image: url('roses.jpg'); 
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             font-family: 'Poppins', sans-serif;
-            overflow: hidden; /* Keeps scrollbars away as butterflies build up */
+            overflow: hidden; 
             display: flex;
             align-items: flex-end; /* Push button to bottom */
             justify-content: center;
             position: relative;
         }
 
-        /* Ambient dark overlay to make text readable against the busy rose background */
+        /* Ambient dark overlay to make text readable */
         .overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.4); /* Adjust opacity here */
+            background-color: rgba(0, 0, 0, 0.5); /* Slightly darker for better contrast with white butterflies */
             z-index: 1;
         }
 
@@ -48,13 +46,13 @@
 
         h1 {
             font-family: 'Great Vibes', cursive;
-            color: #ffb7c5; /* Soft pink */
+            color: #ffb7c5; 
             font-size: 3.5rem;
             margin: 0;
             text-shadow: 0 0 15px rgba(255, 183, 197, 0.7);
         }
 
-        /* Button styling - anchored at the bottom */
+        /* Button styling */
         button {
             background-color: transparent;
             color: #ffb7c5;
@@ -67,74 +65,76 @@
             font-weight: 600;
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 30px; /* Space from bottom edge */
+            transition: all 0.4s ease;
+            margin-bottom: 30px; 
             position: relative;
-            z-index: 20; /* Keep it interactive on top of everything */
+            z-index: 20; 
             backdrop-filter: blur(5px);
             background: rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 15px rgba(255, 183, 197, 0.3);
         }
 
         button:hover {
             background-color: #ffb7c5;
-            color: #333;
-            box-shadow: 0 0 20px rgba(255, 183, 197, 0.6);
+            color: #222;
+            box-shadow: 0 0 25px rgba(255, 183, 197, 0.8);
             transform: scale(1.05);
         }
 
-        /* Butterfly Container for positioning and fluttering */
+        /* Butterfly Container */
         .butterfly-container {
             position: fixed;
-            z-index: 5; /* Below the title and button, above overlay */
-            /* Set a safe, readable size relative to the screen */
-            width: 300px; /* Butterfly width */
-            height: 200px; /* Butterfly height */
+            z-index: 5; 
+            width: 380px; /* Larger, more magnificent size */
+            height: 280px; 
             transform-origin: center;
-            filter: drop-shadow(0 0 10px rgba(255,255,255,0.7));
-            opacity: 0; /* Starts hidden for fade in */
-            animation: fadeInButterfly 1s forwards ease-out, flutter 0.2s infinite alternate;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); /* Deep shadow for 3D effect */
+            opacity: 0; 
+            /* Only fading in, perfectly stationary */
+            animation: fadeInButterfly 1.5s forwards ease-out;
+            transition: transform 0.3s ease;
         }
 
-        /* The actual SVG Butterfly Shape - Pure off-white color */
+        /* A subtle hover effect so they feel interactive but stationary */
+        .butterfly-container:hover {
+            transform: scale(1.02) !important; /* Overrides the inline inline transform slightly */
+            z-index: 15; /* Brings hovered butterfly to the front */
+        }
+
         .butterfly-shape {
             width: 100%;
             height: 100%;
-            fill: #fdfcfc; /* Off-white color */
         }
 
-        /* Message text area centered within the butterfly body */
+        /* Message text area inside the upper/middle wings */
         .butterfly-text-area {
             position: absolute;
-            top: 25%; /* Adjust vertically within the butterfly body */
-            left: 20%; /* Adjust horizontally within the butterfly body */
-            width: 60%; /* Limit text width */
-            height: 50%; /* Limit text height */
+            top: 15%; 
+            left: 15%; 
+            width: 70%; 
+            height: 50%; 
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            z-index: 6; /* On top of the shape */
+            z-index: 6; 
         }
 
         .butterfly-message {
-            font-family: 'Poppins', sans-serif; /* Clean font for full sentences */
-            color: #333; /* Dark legible color */
-            font-size: 1rem;
-            font-weight: 400;
-            line-height: 1.4;
+            font-family: 'Poppins', sans-serif; 
+            color: #1a1a1a; /* Very dark grey for beautiful contrast */
+            font-size: 1.05rem;
+            font-weight: 500;
+            line-height: 1.5;
             margin: 0;
             padding: 10px;
-            word-wrap: break-word; /* Ensure full sentences break correctly */
+            word-wrap: break-word; 
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8); /* Helps legibility over the wing details */
         }
 
         @keyframes fadeInButterfly {
-            to { opacity: 0.95; } /* Make them clear and distinct */
-        }
-
-        /* Subtle fluttering motion */
-        @keyframes flutter {
-            0% { transform: rotate3d(0, 1, 0, 0deg) scale(1) translateY(0px); }
-            100% { transform: rotate3d(0, 1, 0, 50deg) scale(0.98) translateY(-5px); }
+            0% { opacity: 0; transform: scale(0.8) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
         }
     </style>
 </head>
@@ -155,8 +155,6 @@
     </audio>
 
     <script>
-        // STEP C: Edit these messages later!
-        // These are full romantic reasons that will appear inside the butterflies.
         const messages = [
             "Your smile is the most beautiful thing I have ever seen.",
             "I love the way you laugh; it sounds like my favorite song.",
@@ -169,24 +167,18 @@
             "Every love song makes perfect sense now that I have you."
         ];
         
-        let messageIndex = 0; // Keep track of the message to use
+        let messageIndex = 0; 
         let audioStarted = false;
 
         function addButterfly() {
-            // 1. Play "lovely sound" (the romantic song) on first click
             if (!audioStarted) {
                 const audio = document.getElementById('love-audio');
-                audio.volume = 0.5; // Set volume to 50%
-                audio.play().catch(error => {
-                    console.log("Audio playback failed. Ensure 'love-sound.mp3' exists in the folder.");
-                });
+                audio.volume = 0.5; 
+                audio.play().catch(error => console.log("Audio playback failed."));
                 audioStarted = true;
             }
 
-            // 2. Create the unique butterfly with the message
             createButterflyWithMessage(messages[messageIndex]);
-            
-            // 3. Increment the message index and loop if we run out
             messageIndex = (messageIndex + 1) % messages.length;
         }
 
@@ -195,28 +187,38 @@
             const butterflyContainer = document.createElement('div');
             butterflyContainer.className = 'butterfly-container';
             
-            // Random positioning over the whole screen (using viewport units)
-            // Ensure they don't appear over the title or button.
-            const randomX = Math.random() * 70 + 5; // Horizontal safe zone (5vw to 75vw)
-            const randomY = Math.random() * 60 + 10; // Vertical safe zone (10vh to 70vh)
+            // Random positioning 
+            const randomX = Math.random() * 65 + 5; 
+            const randomY = Math.random() * 55 + 10; 
             
             butterflyContainer.style.left = randomX + 'vw';
             butterflyContainer.style.top = randomY + 'vh';
             
-            // Random slight rotation for an organic feel
-            const randomRotate = (Math.random() * 40) - 20; // Rotate between -20 and +20 degrees
-            
-            // Base transform includes rotation. The animation adds the flutter on top.
+            // Set an initial rotation. We use a CSS variable to keep it stationary but rotated.
+            const randomRotate = (Math.random() * 30) - 15; 
             butterflyContainer.style.transform = `rotate(${randomRotate}deg)`;
 
-            // --- Constructing the Butterfly with SVG ---
-            // Simple butterfly SVG (two wings and a body)
+            // --- Magnificent Layered SVG Butterfly ---
             const butterflySVG = `
-                <svg viewBox="0 0 100 80" class="butterfly-shape">
-                    <path d="M 50 40 Q 10 10, 10 40 Q 10 70, 50 40 Z"/>
-                    <path d="M 50 40 Q 90 10, 90 40 Q 90 70, 50 40 Z"/>
-                    <ellipse cx="50" cy="40" rx="3" ry="10" fill="#333"/>
-                    <circle cx="50" cy="28" r="3" fill="#333"/>
+                <svg viewBox="0 0 200 150" class="butterfly-shape">
+                    <defs>
+                        <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur stdDeviation="3" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                        </filter>
+                    </defs>
+                    
+                    <path d="M 100 20 C 60 -20, 0 10, 15 60 C 25 90, 40 110, 45 140 C 55 120, 70 100, 100 80 Z" fill="#fdfcfc" opacity="0.95" filter="url(#glow)"/>
+                    <path d="M 100 20 C 70 0, 20 20, 30 60 C 40 90, 55 105, 60 120 C 70 105, 80 90, 100 80 Z" fill="#ffffff" opacity="0.7"/>
+                    
+                    <path d="M 100 20 C 140 -20, 200 10, 185 60 C 175 90, 160 110, 155 140 C 145 120, 130 100, 100 80 Z" fill="#fdfcfc" opacity="0.95" filter="url(#glow)"/>
+                    <path d="M 100 20 C 130 0, 180 20, 170 60 C 160 90, 145 105, 140 120 C 130 105, 120 90, 100 80 Z" fill="#ffffff" opacity="0.7"/>
+                    
+                    <ellipse cx="100" cy="50" rx="2.5" ry="18" fill="#222"/>
+                    <circle cx="100" cy="28" r="3.5" fill="#222"/>
+                    
+                    <path d="M 98 28 Q 85 10 90 5" stroke="#222" stroke-width="1.5" fill="none"/>
+                    <path d="M 102 28 Q 115 10 110 5" stroke="#222" stroke-width="1.5" fill="none"/>
                 </svg>
             `;
             butterflyContainer.innerHTML = butterflySVG;
@@ -232,7 +234,7 @@
 
             butterflyContainer.appendChild(textArea);
 
-            // Add to the screen - it will not remove itself
+            // Add to the screen 
             garden.appendChild(butterflyContainer);
         }
     </script>
