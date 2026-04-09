@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -21,244 +22,215 @@
             font-family: 'Poppins', sans-serif;
             overflow: hidden; /* Keeps scrollbars away as butterflies build up */
             display: flex;
-            align-items: center;
+            align-items: flex-end; /* Push button to bottom */
             justify-content: center;
-            transition: background 1s ease-in-out; /* Smooth background disappearance if needed */
+            position: relative;
         }
 
-        /* Initial dark overlay to make text readable, which can fade later */
+        /* Ambient dark overlay to make text readable against the busy rose background */
         .overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.4); /* Adjust opacity here (0.4 = 40%) */
+            background-color: rgba(0, 0, 0, 0.4); /* Adjust opacity here */
             z-index: 1;
-            transition: opacity 1s ease-in-out; /* Smooth disappearance */
         }
 
-        .main-container {
-            position: relative;
-            z-index: 10; /* Above the overlay and butterflies */
+        /* Fixed Title at the top */
+        .page-title {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
             text-align: center;
-            background: rgba(255, 255, 255, 0.1); /* Glassmorphism effect */
-            backdrop-filter: blur(10px);
-            padding: 50px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            max-width: 600px;
-            width: 80%;
-            transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out; /* Smooth disappearance of initial content */
+            width: 100%;
         }
 
         h1 {
             font-family: 'Great Vibes', cursive;
             color: #ffb7c5; /* Soft pink */
             font-size: 3.5rem;
-            margin-top: 0;
+            margin: 0;
             text-shadow: 0 0 15px rgba(255, 183, 197, 0.7);
         }
 
-        #message-display {
-            font-size: 1.3rem;
-            color: #fdfcfc; /* Off-white text */
-            min-height: 100px;
-            margin: 30px 0;
-            line-height: 1.6;
-            font-weight: 300;
-        }
-
-        /* The cursor for typewriter effect */
-        .cursor {
-            display: inline-block;
-            width: 2px;
-            background-color: #ffb7c5;
-            margin-left: 2px;
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
+        /* Button styling - anchored at the bottom */
         button {
             background-color: transparent;
             color: #ffb7c5;
             border: 2px solid #ffb7c5;
-            padding: 12px 30px;
+            padding: 15px 40px;
             font-family: 'Poppins', sans-serif;
-            font-size: 1rem;
+            font-size: 1.1rem;
             text-transform: uppercase;
             letter-spacing: 2px;
             font-weight: 600;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 20px;
-            position: relative; /* Ensure it stays above disappearing elements */
+            margin-bottom: 30px; /* Space from bottom edge */
+            position: relative;
             z-index: 20; /* Keep it interactive on top of everything */
+            backdrop-filter: blur(5px);
+            background: rgba(0, 0, 0, 0.2);
         }
 
         button:hover {
             background-color: #ffb7c5;
             color: #333;
             box-shadow: 0 0 20px rgba(255, 183, 197, 0.6);
+            transform: scale(1.05);
         }
 
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* Butterfly styling */
+        /* Butterfly Container for positioning and fluttering */
         .butterfly-container {
             position: fixed;
-            z-index: 15; /* Above initial background and disappearing elements, below button */
-            width: 40px; /* Adjust butterfly size here */
-            height: 40px;
-            filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
+            z-index: 5; /* Below the title and button, above overlay */
+            /* Set a safe, readable size relative to the screen */
+            width: 300px; /* Butterfly width */
+            height: 200px; /* Butterfly height */
+            transform-origin: center;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.7));
             opacity: 0; /* Starts hidden for fade in */
             animation: fadeInButterfly 1s forwards ease-out, flutter 0.2s infinite alternate;
         }
 
-        /* Internal butterfly shape */
-        .butterfly {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: #f5f5f0; /* Pure off-white color */
-            /* Simple butterfly shape using clip-path */
-            clip-path: polygon(50% 100%, 0% 50%, 50% 0%, 100% 50%);
+        /* The actual SVG Butterfly Shape - Pure off-white color */
+        .butterfly-shape {
+            width: 100%;
+            height: 100%;
+            fill: #fdfcfc; /* Off-white color */
         }
 
-        /* Message text directly on the butterfly wings */
-        .butterfly-message {
+        /* Message text area centered within the butterfly body */
+        .butterfly-text-area {
             position: absolute;
-            top: 15%; left: 0; width: 100%; text-align: center;
-            font-family: 'Great Vibes', cursive;
+            top: 25%; /* Adjust vertically within the butterfly body */
+            left: 20%; /* Adjust horizontally within the butterfly body */
+            width: 60%; /* Limit text width */
+            height: 50%; /* Limit text height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 6; /* On top of the shape */
+        }
+
+        .butterfly-message {
+            font-family: 'Poppins', sans-serif; /* Clean font for full sentences */
             color: #333; /* Dark legible color */
-            font-size: 0.8rem; /* Small font size for butterfly messages */
+            font-size: 1rem;
             font-weight: 400;
-            line-height: 1.2;
-            word-break: break-all; /* Break long words on small space */
-            padding: 0 3px;
+            line-height: 1.4;
+            margin: 0;
+            padding: 10px;
+            word-wrap: break-word; /* Ensure full sentences break correctly */
         }
 
         @keyframes fadeInButterfly {
-            to { opacity: 0.9; } /* Keep them slightly translucent */
+            to { opacity: 0.95; } /* Make them clear and distinct */
         }
 
         /* Subtle fluttering motion */
         @keyframes flutter {
-            0% { transform: rotate3d(0, 1, 0, 0deg) scale(1); }
-            100% { transform: rotate3d(0, 1, 0, 70deg) scale(0.95); }
-        }
-
-        /* Hide the main container and background overlay if needed on click */
-        .content-hidden {
-            opacity: 0;
-            visibility: hidden;
+            0% { transform: rotate3d(0, 1, 0, 0deg) scale(1) translateY(0px); }
+            100% { transform: rotate3d(0, 1, 0, 50deg) scale(0.98) translateY(-5px); }
         }
     </style>
 </head>
 <body>
 
-    <div class="overlay" id="background-overlay"></div>
+    <div class="overlay"></div>
 
     <div id="butterfly-garden"></div>
 
-    <div class="main-container" id="initial-content">
-        <h1>For Manya</h1>
-        <div id="message-display">
-            Tap the button, my love...
-            <span class="cursor">&nbsp;</span>
-        </div>
+    <div class="page-title">
+        <h1>For Manya ❤️</h1>
     </div>
 
-    <button onclick="revealLove()" id="action-btn">Tell me why</button>
+    <button onclick="addButterfly()" id="action-btn">Tell me why</button>
 
     <audio id="love-audio" loop>
         <source src="love-sound.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        // Update these with short, distinct memories and feelings for each butterfly
-        // Since user wants to write the code later, these are placeholders for now.
+        // STEP C: Edit these messages later!
+        // These are full romantic reasons that will appear inside the butterflies.
         const messages = [
-            "You're my sunshine",
-            "I love your laugh",
-            "Thinking of you makes me smile",
-            "You're beautiful!",
-            "Every day is better with you",
-            "Your kindness inspires me!",
-            "Can't wait for our next adventure"
+            "Your smile is the most beautiful thing I have ever seen.",
+            "I love the way you laugh; it sounds like my favorite song.",
+            "You make every single day feel like a dream come true.",
+            "You aren't just my partner; you are my best friend.",
+            "I fall more in love with you every time you look at me.",
+            "You have shown me what unconditional love truly looks like.",
+            "My favorite place in the world is right by your side.",
+            "You are the strongest and most inspiring person I know.",
+            "Every love song makes perfect sense now that I have you."
         ];
-        let currentMessageIndex = 0; // Keep track of the message to use
-
+        
+        let messageIndex = 0; // Keep track of the message to use
         let audioStarted = false;
-        let isTyping = false;
 
-        function revealLove() {
-            if (isTyping) return; // Prevent clicking during typing of main message
-
+        function addButterfly() {
             // 1. Play "lovely sound" (the romantic song) on first click
             if (!audioStarted) {
                 const audio = document.getElementById('love-audio');
                 audio.volume = 0.5; // Set volume to 50%
                 audio.play().catch(error => {
-                    console.log("Audio playback failed. Ensure 'love-sound.mp3' exists and browser allows it.");
+                    console.log("Audio playback failed. Ensure 'love-sound.mp3' exists in the folder.");
                 });
                 audioStarted = true;
-                
-                // 2. Make everything *except* the button disappear smoothly on first click
-                document.getElementById('initial-content').classList.add('content-hidden');
-                document.getElementById('background-overlay').classList.add('content-hidden');
-                // The main rose background image stays
             }
 
-            // 3. Immediately queue the new off-white butterfly to appear randomly after 1 second
-            // and never disappear, containing the current message.
-            setTimeout(createButterfly, 1000);
+            // 2. Create the unique butterfly with the message
+            createButterflyWithMessage(messages[messageIndex]);
             
-            // 4. Temporarily show current message in central area (or you could just update button text)
-            // But user only asked for elements to *disappear* and butterflies to *appear with message*.
-            // So, let's just make the central main message area fade away *after* the initial text disappears on first click,
-            // or just make the text vanish, and the butterflies become the focus.
-            // Let's go with just butterflies for subsequent clicks.
-            // But user also requested "butterfly appears with text, but never dissappears... new butterfly appears with text".
-            // So, for now, the subsequent clicks *only* add a butterfly with the *next* message.
-            currentMessageIndex = (currentMessageIndex + 1) % messages.length; // Loop through messages
+            // 3. Increment the message index and loop if we run out
+            messageIndex = (messageIndex + 1) % messages.length;
         }
 
-        // Previous typewriter function is removed for subsequent clicks to follow the "only butterflies" requirement
-        
-        function createButterfly() {
+        function createButterflyWithMessage(messageContent) {
             const garden = document.getElementById('butterfly-garden');
             const butterflyContainer = document.createElement('div');
             butterflyContainer.className = 'butterfly-container';
             
             // Random positioning over the whole screen (using viewport units)
-            const randomX = Math.random() * 95; // Keep 5vw away from edge
-            const randomY = Math.random() * 95; // Keep 5vh away from edge
+            // Ensure they don't appear over the title or button.
+            const randomX = Math.random() * 70 + 5; // Horizontal safe zone (5vw to 75vw)
+            const randomY = Math.random() * 60 + 10; // Vertical safe zone (10vh to 70vh)
             
             butterflyContainer.style.left = randomX + 'vw';
             butterflyContainer.style.top = randomY + 'vh';
             
-            // Random slight rotation so they don't all look the same
-            const randomRotate = Math.random() * 360;
+            // Random slight rotation for an organic feel
+            const randomRotate = (Math.random() * 40) - 20; // Rotate between -20 and +20 degrees
+            
+            // Base transform includes rotation. The animation adds the flutter on top.
             butterflyContainer.style.transform = `rotate(${randomRotate}deg)`;
 
-            // Internal butterfly structure
-            const butterflyShape = document.createElement('div');
-            butterflyShape.className = 'butterfly';
-            butterflyContainer.appendChild(butterflyShape);
+            // --- Constructing the Butterfly with SVG ---
+            // Simple butterfly SVG (two wings and a body)
+            const butterflySVG = `
+                <svg viewBox="0 0 100 80" class="butterfly-shape">
+                    <path d="M 50 40 Q 10 10, 10 40 Q 10 70, 50 40 Z"/>
+                    <path d="M 50 40 Q 90 10, 90 40 Q 90 70, 50 40 Z"/>
+                    <ellipse cx="50" cy="40" rx="3" ry="10" fill="#333"/>
+                    <circle cx="50" cy="28" r="3" fill="#333"/>
+                </svg>
+            `;
+            butterflyContainer.innerHTML = butterflySVG;
 
-            // Message text element
-            const butterflyMessage = document.createElement('div');
-            butterflyMessage.className = 'butterfly-message';
-            // User specified short messages on each, likely to fit this design.
-            // Placeholders used from messages array. User to edit later.
-            butterflyMessage.innerText = messages[currentMessageIndex]; 
-            butterflyContainer.appendChild(butterflyMessage);
+            // --- Adding the Message Text ---
+            const textArea = document.createElement('div');
+            textArea.className = 'butterfly-text-area';
+            
+            const messageElement = document.createElement('p');
+            messageElement.className = 'butterfly-message';
+            messageElement.innerText = messageContent; 
+            textArea.appendChild(messageElement);
+
+            butterflyContainer.appendChild(textArea);
 
             // Add to the screen - it will not remove itself
             garden.appendChild(butterflyContainer);
