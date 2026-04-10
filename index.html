@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -30,6 +31,7 @@
             z-index: 1;
         }
 
+        /* The title is now completely transparent */
         .page-title {
             position: fixed;
             top: 20px;
@@ -38,75 +40,60 @@
             z-index: 10;
             text-align: center;
             width: 100%;
+            opacity: 0; /* Makes the title invisible */
         }
 
         h1 {
             font-family: 'Great Vibes', cursive;
-            color: #ffb7c5; 
             font-size: 3.5rem;
             margin: 0;
-            text-shadow: 0 0 15px rgba(255, 183, 197, 0.7);
         }
 
-        /* Added a smooth fade-out transition for the button */
+        /* The button is now completely transparent but still clickable! */
         button {
             background-color: transparent;
-            color: #ffb7c5;
-            border: 2px solid #ffb7c5;
-            padding: 15px 40px;
+            color: transparent; /* Invisible text */
+            border: transparent; /* Invisible border */
+            padding: 25px 60px; /* Made the clickable area slightly larger so it's easier to find */
             font-family: 'Poppins', sans-serif;
             font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 600;
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.8s ease;
             margin-bottom: 30px; 
             position: relative;
             z-index: 20; 
-            backdrop-filter: blur(5px);
-            background: rgba(0, 0, 0, 0.2);
-            box-shadow: 0 0 15px rgba(255, 183, 197, 0.3);
+            /* No shadows or visible background */
         }
 
-        button:hover {
-            background-color: #ffb7c5;
-            color: #222;
-            box-shadow: 0 0 25px rgba(255, 183, 197, 0.8);
-            transform: scale(1.05);
-        }
-
-        /* Class to hide the button at the end */
         .hide-element {
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(20px);
+            display: none !important;
         }
 
-        .butterfly-container {
+        /* Heart Container Styling */
+        .heart-container {
             position: fixed;
             z-index: 5; 
-            width: 380px; 
-            height: 280px; 
+            width: 320px; 
+            height: 300px; 
             transform-origin: center;
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); 
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.4)); 
             opacity: 0; 
-            animation: fadeInButterfly 1.5s forwards ease-out;
+            animation: fadeInHeart 1.5s forwards ease-out;
             transition: transform 0.3s ease;
         }
 
-        .butterfly-container:hover {
-            transform: scale(1.02) !important; 
+        .heart-container:hover {
+            transform: scale(1.03) !important; 
             z-index: 15; 
         }
 
-        .butterfly-shape {
+        .heart-shape {
             width: 100%;
             height: 100%;
         }
 
-        .butterfly-text-area {
+        /* Message text area perfectly centered in the widest part of the heart */
+        .heart-text-area {
             position: absolute;
             top: 15%; 
             left: 15%; 
@@ -119,38 +106,36 @@
             z-index: 6; 
         }
 
-        .butterfly-message {
+        .heart-message {
             font-family: 'Poppins', sans-serif; 
-            color: #ffffff; 
+            color: #333; /* Dark text reads perfectly on light pink */
             font-size: 1.05rem;
             font-weight: 500;
             line-height: 1.5;
             margin: 0;
             padding: 10px;
             word-wrap: break-word; 
-            text-shadow: 0 0 5px rgba(0, 0, 0, 0.8); 
         }
 
-        /* --- NEW: The Final Message Box Styling --- */
         #final-message-box {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(20, 0, 0, 0.85); /* Dark, slightly red tinted glass */
+            background: rgba(20, 0, 0, 0.85); 
             backdrop-filter: blur(12px);
             padding: 50px;
             border-radius: 20px;
-            border: 2px solid #b30000;
+            border: 2px solid #ffb6c1; /* Light pink border for finale box */
             color: #fff;
-            z-index: 100; /* On top of everything */
+            z-index: 100; 
             text-align: center;
             max-width: 80%;
             width: 700px;
-            box-shadow: 0 0 40px rgba(255, 26, 26, 0.4);
+            box-shadow: 0 0 40px rgba(255, 182, 193, 0.4);
             opacity: 0;
             visibility: hidden;
-            transition: opacity 2s ease, visibility 2s ease; /* Slow, dramatic fade in */
+            transition: opacity 2s ease, visibility 2s ease; 
         }
 
         #final-message-box.show-final {
@@ -160,7 +145,7 @@
 
         #final-message-box h2 {
             font-family: 'Great Vibes', cursive;
-            color: #ffb7c5;
+            color: #ffb6c1; /* Light pink title */
             font-size: 3rem;
             margin-top: 0;
             margin-bottom: 20px;
@@ -173,7 +158,7 @@
             font-weight: 300;
         }
 
-        @keyframes fadeInButterfly {
+        @keyframes fadeInHeart {
             0% { opacity: 0; transform: scale(0.8) translateY(20px); }
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
@@ -182,18 +167,18 @@
 <body>
 
     <div class="overlay"></div>
-    <div id="butterfly-garden"></div>
+    <div id="heart-garden"></div>
     
     <div class="page-title">
-        <h1>Hey Manya dear, I made this for you to show you that you're loved. I hope it reaches to your heart☺️☺️</h1>
+        <h1>For Manya ❤️</h1>
     </div>
     
-    <button onclick="addButterfly()" id="action-btn">The reason I love you so muchh 😋🥰🥰</button>
+    <button onclick="addHeart()" id="action-btn">Tell me why</button>
 
     <div id="final-message-box">
         <h2>My Dearest Manya,</h2>
         <p>
-            Even a hundred reasons could never fully explain how much you mean to me. You are my favorite part of every day, and I am so incredibly lucky to have you in my life. I love you more than words can say. I will love you till there's a single breath in me
+            Even a hundred reasons could never fully explain how much you mean to me. You are my favorite part of every day, and I am so incredibly lucky to have you in my life. I love you more than words can say.
         </p>
     </div>
 
@@ -202,118 +187,23 @@
     </audio>
 
     <script>
-        // Add your 100 messages here! 
         const messages = [
-            "I love the way your eyes just light up when you smile; it genuinely brightens my whole reality and makes whatever stress I'm dealing with completely fade into the background.",
-            "I love that you are literally the very first thought in my head when I wake up, and no matter how crazy the day gets, you're the only thing I wanna think about before I fall asleep.",
-            "I love the way my name sounds when you say it. It just hits completely different when it comes from you.",
-            "I love that knowing you makes me wanna work harder every single day, whether it's with my studies, or just trying to be the best possible version of myself for you.",
-            "I love the quiet moments we have where we don't even need to say a word, but our vibe is just perfect and it feels so comfortable.",
-            "I love your laugh so so so so much. It makes me feel the luckiest man alive on this Earth.",
-            "I love how you remember the most random, tiny details about me that even I forgot I ever told you.",
-            "I love the way you make me realize so much things I don't know, making me look at things from a completely different perspective.",
-            "I love that you are my ultimate safe zone; whenever school, exams, or life just gets chaotic, talking to you is like finally reaching heaven",
-            "I love the way you walk. It's honestly mesmerizing just to watch you.",
-            "I love the insane chemistry between us. It’s not just a feeling; it’s this undeniable energy that just logically makes perfect sense, like everything is exactly where it's supposed to be.",
-            "I love how time literally glitches and disappears whenever I'm talking to you; we can talk for hours and it honestly feels like seconds.",
-            "I love the genuine kindness you have and the way you care so deeply about the people around you(I want you to do the same for me 👉👈. Plzzz 🥺.)",
-            "I love the way you always listen to all my stupid ideas. Everything I do, you never hurt me. You support me in every way possible and comfort me.",
-            "I love how you can basically read my mind and know I'm having a rough day before I even say a single word to you.",
-            "I love the way your hand feels in mine, like it was literally built to just fit perfectly right in my hand.",
-            "I love the absolute comfort of just being in your presence; I can be always be myself around you without thinking about a single thing.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            
+            "Your smile is the most beautiful thing I have ever seen.",
+            "I love the way you laugh; it sounds like my favorite song.",
+            "You make every single day feel like a dream come true.",
+            "You aren't just my partner; you are my best friend.",
+            "I fall more in love with you every time you look at me.",
+            "You have shown me what unconditional love truly looks like.",
+            "My favorite place in the world is right by your side.",
+            "You are the strongest and most inspiring person I know.",
+            "Every love song makes perfect sense now that I have you."
         ];
         
         let messageIndex = 0; 
         let audioStarted = false;
         let isFinished = false;
 
-        function addButterfly() {
-            // Stop the function if we are already finished
+        function addHeart() {
             if (isFinished) return;
 
             if (!audioStarted) {
@@ -323,72 +213,64 @@
                 audioStarted = true;
             }
 
-            // Create the butterfly
-            createButterflyWithMessage(messages[messageIndex]);
+            createHeartWithMessage(messages[messageIndex]);
             messageIndex++;
 
-            // CHECK: Was that the very last message in the array?
             if (messageIndex >= messages.length) {
-                isFinished = true; // Lock the generator
+                isFinished = true; 
                 triggerGrandFinale();
             }
         }
 
         function triggerGrandFinale() {
-            // 1. Hide the button smoothly
             const btn = document.getElementById('action-btn');
             btn.classList.add('hide-element');
 
-            // 2. Wait 2.5 seconds after the last butterfly appears, then fade in the big text box
             setTimeout(() => {
                 document.getElementById('final-message-box').classList.add('show-final');
             }, 2500);
         }
 
-        function createButterflyWithMessage(messageContent) {
-            const garden = document.getElementById('butterfly-garden');
-            const butterflyContainer = document.createElement('div');
-            butterflyContainer.className = 'butterfly-container';
+        function createHeartWithMessage(messageContent) {
+            const garden = document.getElementById('heart-garden');
+            const heartContainer = document.createElement('div');
+            heartContainer.className = 'heart-container';
             
+            // Random positioning across the screen
             const randomX = Math.random() * 65 + 5; 
             const randomY = Math.random() * 55 + 10; 
             
-            butterflyContainer.style.left = randomX + 'vw';
-            butterflyContainer.style.top = randomY + 'vh';
+            heartContainer.style.left = randomX + 'vw';
+            heartContainer.style.top = randomY + 'vh';
             
+            // Slight tilt for organic look
             const randomRotate = (Math.random() * 30) - 15; 
-            butterflyContainer.style.transform = `rotate(${randomRotate}deg)`;
+            heartContainer.style.transform = `rotate(${randomRotate}deg)`;
 
-            const butterflySVG = `
-                <svg viewBox="0 0 200 150" class="butterfly-shape">
+            // Light Pink Heart SVG
+            const heartSVG = `
+                <svg viewBox="0 0 100 100" class="heart-shape">
                     <defs>
                         <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-                            <feGaussianBlur stdDeviation="3" result="blur" />
+                            <feGaussianBlur stdDeviation="2" result="blur" />
                             <feComposite in="SourceGraphic" in2="blur" operator="over" />
                         </filter>
                     </defs>
-                    <path d="M 100 20 C 60 -20, 0 10, 15 60 C 25 90, 40 110, 45 140 C 55 120, 70 100, 100 80 Z" fill="#b30000" opacity="0.95" filter="url(#glow)"/>
-                    <path d="M 100 20 C 70 0, 20 20, 30 60 C 40 90, 55 105, 60 120 C 70 105, 80 90, 100 80 Z" fill="#ff1a1a" opacity="0.7"/>
-                    <path d="M 100 20 C 140 -20, 200 10, 185 60 C 175 90, 160 110, 155 140 C 145 120, 130 100, 100 80 Z" fill="#b30000" opacity="0.95" filter="url(#glow)"/>
-                    <path d="M 100 20 C 130 0, 180 20, 170 60 C 160 90, 145 105, 140 120 C 130 105, 120 90, 100 80 Z" fill="#ff1a1a" opacity="0.7"/>
-                    <ellipse cx="100" cy="50" rx="2.5" ry="18" fill="#111"/>
-                    <circle cx="100" cy="28" r="3.5" fill="#111"/>
-                    <path d="M 98 28 Q 85 10 90 5" stroke="#111" stroke-width="1.5" fill="none"/>
-                    <path d="M 102 28 Q 115 10 110 5" stroke="#111" stroke-width="1.5" fill="none"/>
+                    <path d="M 50 85 C 50 85, 10 55, 10 25 C 10 10, 35 5, 50 20 C 65 5, 90 10, 90 25 C 90 55, 50 85, 50 85 Z" fill="#ffb6c1" filter="url(#glow)"/>
                 </svg>
             `;
-            butterflyContainer.innerHTML = butterflySVG;
+            heartContainer.innerHTML = heartSVG;
 
             const textArea = document.createElement('div');
-            textArea.className = 'butterfly-text-area';
+            textArea.className = 'heart-text-area';
             
             const messageElement = document.createElement('p');
-            messageElement.className = 'butterfly-message';
+            messageElement.className = 'heart-message';
             messageElement.innerText = messageContent; 
             textArea.appendChild(messageElement);
 
-            butterflyContainer.appendChild(textArea);
-            garden.appendChild(butterflyContainer);
+            heartContainer.appendChild(textArea);
+            garden.appendChild(heartContainer);
         }
     </script>
 </body>
