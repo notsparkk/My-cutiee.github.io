@@ -30,7 +30,7 @@
             z-index: 1;
         }
 
-        /* The title is now completely transparent */
+        /* Title is now translucent (opacity set to 0.5) */
         .page-title {
             position: fixed;
             top: 20px;
@@ -39,41 +39,59 @@
             z-index: 10;
             text-align: center;
             width: 100%;
-            opacity: 0; /* Makes the title invisible */
+            opacity: 0.5; 
+            transition: opacity 0.5s ease;
         }
 
         h1 {
             font-family: 'Great Vibes', cursive;
+            color: #ffb6c1; /* Light pink */
             font-size: 3.5rem;
             margin: 0;
+            text-shadow: 0 0 10px rgba(255, 182, 193, 0.3);
         }
 
-        /* The button is now completely transparent but still clickable! */
+        /* Button is now translucent */
         button {
-            background-color: transparent;
-            color: transparent; /* Invisible text */
-            border: transparent; /* Invisible border */
-            padding: 25px 60px; /* Made the clickable area slightly larger so it's easier to find */
+            background-color: rgba(255, 182, 193, 0.1); /* Very faint pink glass */
+            color: rgba(255, 182, 193, 0.6); /* Translucent text */
+            border: 1px solid rgba(255, 182, 193, 0.3); /* Thin, faint border */
+            backdrop-filter: blur(4px); /* Glassmorphism blur effect */
+            padding: 15px 40px;
             font-family: 'Poppins', sans-serif;
             font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
             border-radius: 50px;
             cursor: pointer;
+            transition: all 0.4s ease;
             margin-bottom: 30px; 
             position: relative;
             z-index: 20; 
-            /* No shadows or visible background */
+        }
+
+        button:hover {
+            background-color: rgba(255, 182, 193, 0.3);
+            color: rgba(255, 182, 193, 1);
+            border: 1px solid rgba(255, 182, 193, 0.8);
+            box-shadow: 0 0 20px rgba(255, 182, 193, 0.5);
+            transform: scale(1.05);
         }
 
         .hide-element {
-            display: none !important;
+            opacity: 0 !important;
+            visibility: hidden;
+            transform: translateY(20px);
+            pointer-events: none;
         }
 
-        /* Heart Container Styling */
+        /* Heart Container - Increased size to perfectly fit your longest paragraphs */
         .heart-container {
             position: fixed;
             z-index: 5; 
-            width: 320px; 
-            height: 300px; 
+            width: 420px; /* Made wider */
+            height: 400px; /* Made taller */
             transform-origin: center;
             filter: drop-shadow(0 10px 20px rgba(0,0,0,0.4)); 
             opacity: 0; 
@@ -91,13 +109,13 @@
             height: 100%;
         }
 
-        /* Message text area perfectly centered in the widest part of the heart */
+        /* Adjusted text area to match the new larger heart dimensions */
         .heart-text-area {
             position: absolute;
-            top: 15%; 
-            left: 15%; 
-            width: 70%; 
-            height: 50%; 
+            top: 18%; 
+            left: 12%; 
+            width: 76%; 
+            height: 55%; 
             display: flex;
             align-items: center;
             justify-content: center;
@@ -107,8 +125,8 @@
 
         .heart-message {
             font-family: 'Poppins', sans-serif; 
-            color: #333; /* Dark text reads perfectly on light pink */
-            font-size: 1.05rem;
+            color: #222; 
+            font-size: 0.95rem; /* Sized so long text fits perfectly */
             font-weight: 500;
             line-height: 1.5;
             margin: 0;
@@ -125,7 +143,7 @@
             backdrop-filter: blur(12px);
             padding: 50px;
             border-radius: 20px;
-            border: 2px solid #ffb6c1; /* Light pink border for finale box */
+            border: 2px solid #ffb6c1; 
             color: #fff;
             z-index: 100; 
             text-align: center;
@@ -144,7 +162,7 @@
 
         #final-message-box h2 {
             font-family: 'Great Vibes', cursive;
-            color: #ffb6c1; /* Light pink title */
+            color: #ffb6c1; 
             font-size: 3rem;
             margin-top: 0;
             margin-bottom: 20px;
@@ -168,8 +186,8 @@
     <div class="overlay"></div>
     <div id="heart-garden"></div>
     
-    <div class="page-title">
-        <h1>For Manya ❤️</h1>
+    <div class="page-title" id="main-title">
+        <h1>Heyyy Pariiii, Maine yeh aapke liye bnaya hai. Hope it makes you feel better ❤️</h1>
     </div>
     
     <button onclick="addHeart()" id="action-btn">Tell me why</button>
@@ -186,6 +204,7 @@
     </audio>
 
     <script>
+        // Your complete list of 63 reasons
         const messages = [
             "I love the way your eyes just light up when you smile; it genuinely brightens my whole reality and makes whatever stress I'm dealing with completely fade into the background.",
             "I love that you are literally the very first thought in my head when I wake up, and no matter how crazy the day gets, you're the only thing I wanna think about before I fall asleep.",
@@ -199,96 +218,57 @@
             "I love the way you walk. It's honestly mesmerizing just to watch you.",
             "I love the insane chemistry between us. It’s not just a feeling; it’s this undeniable energy that just logically makes perfect sense, like everything is exactly where it's supposed to be.",
             "I love how time literally glitches and disappears whenever I'm talking to you; we can talk for hours and it honestly feels like seconds.",
-            "I love the genuine kindness you have and the way you care so deeply about the people around you(I want you to do the same for me 👉👈. Plzzz 🥺.)",
+            "I love the genuine kindness you have and the way you care so deeply about the people around you (I want you to do the same for me 👉👈. Plzzz 🥺.)",
             "I love the way you always listen to all my stupid ideas. Everything I do, you never hurt me. You support me in every way possible and comfort me.",
             "I love how you can basically read my mind and know I'm having a rough day before I even say a single word to you.",
             "I love the way your hand feels in mine, like it was literally built to just fit perfectly right in my hand.",
-            "I love the absolute comfort of just being in your presence; I can be always be myself around you without thinking about a single thing.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-            "You are the strongest and most inspiring person I know.",
-
+            "I love the comfort of just being in your presence; I can be always be myself around you without thinking about a single thing.",
+            "I love how fiercely you protect the people you care about (meeee). Your love is unmatched.",
+            "I love the way you tease me and keep us always laughing and smiling (You don't do it now 🥺)",
+            "I love the way you look toward your future; watching you work for what you want is what helps me go on.",
+            "I love that you trust me with the sides of yourself that you don't show to the rest of the world.",
+            "I love the way you forgive me when I mess up or act stubborn, and how you help me understand things instead of just getting mad at me.",
+            "I love the way you roll your eyes at me when I'm being annoying, but I can still see you trying not to smile.",
+            "I love the way you make me laugh. No one in this world can make me more happy than you.",
+            "I love the way you text me goodnight. It’s the perfect end to my day, every single time.",
+            "I love the way you brighten up my mood. Even an excited 'Heyyyyyyy' message makes my day.",
+            "I love how everything in my life just makes so much more sense now that you are in it.",
+            "I love that you never pretend to be anyone else; you are just you when you're with me.",
+            "I love the way you actually listen when I go on a massive rant about something utterly boring.",
+            "I love your resilience. When things get difficult, you don't break; you handle it with strength and overcome it.",
+            "I love the tone of your voice when you're sleepy. It's soooo lovely.",
+            "I love the way everything just feels in place when we're together, like a perfect masterpiece.",
+            "I love the way you celebrate my little victories, making me feel like I just achieved something massive.",
+            "I love how you make ordinary, boring days feel like an actual adventure just by being a part of them.",
+            "I love that you can make me laugh harder than literally anyone else on earth.",
+            "I love your unique perspective on the world and how you notice things that everyone else just walks right past.",
+            "I love the memory of when we first met and how much I still look forward to seeing you, every single time, with that exact same excitement.",
+            "I love how my heart skips a beat everytime I see you. It always makes me happy to see you.",
+            "I love the way you take care of me when I'm completely burned out and just need a reset.",
+            "I love your stubbornness when you know you are right, even when we are arguing, because I respect how much you stand your ground.",
+            "I love your honesty. I never have to doubt alot with you or what you're thinking.",
+            "I love how you hold my attention so effortlessly. I could listen to you talk about absolutely anything for hours.",
+            "I love how we can talk endlessly and I still walk away feeling like I have a million more things I wanna say to you.",
+            "I love your confidence and the way you carry yourself.",
+            "I love the beautiful mind you have. It shows how wise you actually are.",
+            "I love that our story is better than any game, movie, or anime I could ever experience.",
+            "I love how you made everyone else look ugly in front of you. You're the only person I love.",
+            "I love the way you look at me. It makes me feel proud among all the guys who stare at you.",
+            "I love how your smile can instantly change my mood. You're so special.",
+            "I love the way you understand everything I say. Our minds think alike.",
+            "I love the way your hair falls over your face when you're looking down, and the way you hold them back from your face.",
+            "I love how loyal you are to me. This is the only thing I ever wished from you and I got it.",
+            "I love the way you get defensive over me; it makes me feel I always have someone who will be with me when I'm hurt.",
+            "I love your mood swings. It helps me get near you and console you like my baby.",
+            "I love the way you get angry. Even while angry, you look like a baby crying over chocolates. You're that sweet.",
+            "I love that building a future with you feels like a necessity. I wanna be the one who gets to fulfill all your needs.",
+            "I love the way you somehow manage to look absolutely flawless even when you haven't tried at all.",
+            "I love that you are my literal escape from reality; my own personal space where nothing else matters but us.",
+            "I love the way you text back in literal paragraphs when you're passionate about something; reading your mind is my favorite hobby.",
+            "I love the absolute certainty I have that you are the one; it’s not a guess, it's just a hard fact programmed right into my brain.",
+            "I love how you smell. It’s just this comforting scent that makes me forget the world.",
+            "I love how protective I feel over you; like my main instinct is just to make sure you are always smiling and safe.",
+            "I love the fact that out of all the possible timelines and universes, I somehow got lucky enough to be in the one where you are mine."
         ];
         
         let messageIndex = 0; 
@@ -315,8 +295,12 @@
         }
 
         function triggerGrandFinale() {
+            // Hide the button and the main title so the focus is entirely on the final message
             const btn = document.getElementById('action-btn');
+            const title = document.getElementById('main-title');
+            
             btn.classList.add('hide-element');
+            title.classList.add('hide-element');
 
             setTimeout(() => {
                 document.getElementById('final-message-box').classList.add('show-final');
@@ -328,7 +312,7 @@
             const heartContainer = document.createElement('div');
             heartContainer.className = 'heart-container';
             
-            // Random positioning across the screen
+            // Random positioning across the screen, keeping edges safe
             const randomX = Math.random() * 65 + 5; 
             const randomY = Math.random() * 55 + 10; 
             
